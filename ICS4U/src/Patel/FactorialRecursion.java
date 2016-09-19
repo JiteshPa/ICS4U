@@ -23,6 +23,7 @@ public class FactorialRecursion {
 		System.out.println("Please enter another number");
 		userInputTwo=Integer.parseInt(scn.nextLine());
 		permut(userInputOne,userInputTwo);
+		//hi
 		
 	}
 	/**
