@@ -8,7 +8,10 @@ package Patel;
 import java.util.Scanner;
 
 public class RecursionAsterisks {
-
+	/**
+	 * This is the main method. It gets a number from the user, and calls the starString method 
+	 * @param args
+	 */
 	public static void main(String[] args) {
 		Scanner scn=new Scanner(System.in);
 		int userInput=0;
@@ -18,6 +21,10 @@ public class RecursionAsterisks {
 		
 
 	}
+	/**
+	 * This method gets a number and outputs 2^number asterisks in an organized fashion.
+	 * @param double x
+	 */
 	public static void starString(double x){
 		if (x==0)
 		{			
