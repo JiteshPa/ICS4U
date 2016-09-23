@@ -66,7 +66,7 @@ public class KnightHop {
 		}
 		else{
 			counter++;
-			checker1(x-2,y-1,z,w);			
+			checker2(x-2,y-1,z,w);			
 		}
 	}
 	public static void checker3(long x, long y, long z, long w)
@@ -81,7 +81,7 @@ public class KnightHop {
 		}
 		else{
 			counter++;
-			checker1(x+2,y+1,z,w);			
+			checker3(x+2,y+1,z,w);			
 		}
 	}
 	public static void checker4(long x, long y, long z, long w)
@@ -96,7 +96,7 @@ public class KnightHop {
 		}
 		else{
 			counter++;
-			checker1(x-2,y+1,z,w);			
+			checker4(x-2,y+1,z,w);			
 		}
 	}
 	public static void checker5(long x, long y, long z, long w)
@@ -111,7 +111,7 @@ public class KnightHop {
 		}
 		else{
 			counter++;
-			checker1(x+1,y-2,z,w);			
+			checker5(x+1,y-2,z,w);			
 		}
 	}
 	public static void checker6(long x, long y, long z, long w)
@@ -126,7 +126,7 @@ public class KnightHop {
 		}
 		else{
 			counter++;
-			checker1(x+1,y+2,z,w);			
+			checker6(x+1,y+2,z,w);			
 		}
 	}
 	public static void checker7(long x, long y, long z, long w)
@@ -141,7 +141,7 @@ public class KnightHop {
 		}
 		else{
 			counter++;
-			checker1(x-1,y-2,z,w);			
+			checker7(x-1,y-2,z,w);			
 		}
 	}
 	public static void checker8(long x, long y, long z, long w)
@@ -156,7 +156,7 @@ public class KnightHop {
 		}
 		else{
 			counter++;
-			checker1(x-1,y+2,z,w);			
+			checker8(x-1,y+2,z,w);			
 		}
 	}
 
