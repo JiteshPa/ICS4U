@@ -1,39 +1,72 @@
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.FileReader;
+import java.io.IOException;
+import java.io.PrintStream;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.InputMismatchException;
 import java.util.Scanner;
+/**
+ * 
+ * @author 322954991
+ *
+ */
 public class SchoolSystem {
 	public static ArrayList<Student> studRecs=new ArrayList<Student>();
 	public static Scanner scn=new Scanner (System.in);
+	public static File file=new File("src\\students.txt");	
+	//public static FileOutputStream fileOutputStream=new FileOutputStream("src\\students.txt");
+	//public static PrintStream fps=new PrintStream(fileOutputStream);
+	public static BufferedReader fbr;
+	public static FileOutputStream fileOutputStream;
+	public static PrintStream fps;
+	
 
+	public static void setUp(){
+		try {
+			fileOutputStream = new FileOutputStream ("src\\students.txt");
+			fbr=new BufferedReader(new FileReader(file));
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			if (!file.exists())
+				try {
+					file.createNewFile();
+				} catch (IOException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+		}
+		fps=new PrintStream(fileOutputStream);
+	}
 	public static void main(String[] args) {
+		setUp();
 		do{
-		int option=0;
+		int option;
 		System.out.println("Please enter the number of the option you would like to use.");
 		System.out.println("1.Add Student");
 		System.out.println("2.Find Student");
 		System.out.println("3.Print All Students");
 		System.out.println("4.Sort All Students");
-		
 		System.out.println("10.Quit");
 		
 
 		try{
 			option=Integer.parseInt(scn.nextLine());				
-		}catch(NumberFormatException e){
+		}catch(NumberFormatException e2){
 			System.out.println("Please enter a valid number.");
 			continue;
 		}
-		
 		if (option==1)
 			addStudent();
 		else if (option==2){
 			System.out.println("Please input the last name of the student you would like to find.");
-			scn.nextLine();
 			Student search=findStudent(scn.nextLine());
 			if(search==null)
 			{
-				System.out.println("There is no student with that name in the records.");
+				System.out.println("There is no student with that last name in the records.");
 			}
 			else{
 				System.out.println("1.Print Student's Information");
@@ -51,17 +84,15 @@ public class SchoolSystem {
 				else if(option==2)
 					removeStudent(search);
 				else if (option==0);
-					main(null);
-				
+					main(null);				
 			}
 		}
 		else if (option==3)
-			printAll();
-		
+			printAll();		
 		else if (option==4)
 			sort();
 		else if(option==10)
-			break;
+			quit();			
 		}while(true);
 	}
 	public static void addStudent()
@@ -98,11 +129,11 @@ public class SchoolSystem {
 		String address=scn.nextLine();
 		System.out.println("Please enter the student's city.");
 		String city=scn.nextLine();
-		System.out.println("Please enter the student's province.");
+		System.out.println("Please enter the student's province using two letter code(e.g. ON for Ontario)");
 		checker=true;
-		
-		
 		String province=scn.nextLine();
+		Province valid=checkProvince(province.toLowerCase());
+		
 		System.out.println("Please enter the student's postal code.");
 		while(checker==true){
 			postalCode=scn.nextLine().toLowerCase();
@@ -139,7 +170,11 @@ public class SchoolSystem {
 				System.out.println("Please enter a valid birthday");
 			}
 		}
-		studRecs.add(new Student(firstName,lastName,phoneNumber,address,city,province,postalCode,birthday));
+		studRecs.add(new Student(firstName,lastName,phoneNumber,address,city,valid,postalCode,birthday));
+		for (int i=0;i<studRecs.size();i++){
+			fps.print(studRecs.get(i).toString());			
+		}
+	
 		main(null);
 	}
 	/**
@@ -153,7 +188,6 @@ public class SchoolSystem {
 		else
 			return false;
 	}
-
 	/**
 	 * 
 	 * @param x
@@ -165,13 +199,18 @@ public class SchoolSystem {
 		else
 			return false;
 	}
-
 	public static void quit(){
 		System.out.println("Goodbye!");
+		try {
+			fileOutputStream.close();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		System.exit(0);
 	}
 	public static Student findStudent(String lastName){
-		for (int i=0;i<studRecs.size()+1;i++){
+		for (int i=0;i<studRecs.size();i++){
 			if (studRecs.get(i).getLastName().equals(lastName))
 				return studRecs.get(i);			
 		}
@@ -195,7 +234,7 @@ public class SchoolSystem {
 		main(null);
 	}
 	public static void printAll(){
-		for (int i=0;i<studRecs.size();i++){
+		/*for (int i=0;i<studRecs.size();i++){
 			System.out.println(studRecs.get(i).getFirstName());
 			System.out.println(studRecs.get(i).getLastName());
 			System.out.println(studRecs.get(i).getPhoneNumber());
@@ -205,9 +244,25 @@ public class SchoolSystem {
 			System.out.println(studRecs.get(i).getPostalCode());
 			System.out.println(studRecs.get(i).getBirthday());
 			System.out.println();
+		}*/
+		String [] values=null;
+		try {
+			values=fbr.readLine().split(",");
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		for(int i=0;i<values.length;i++)
+		{
+			System.out.println(values[i]);
+			if ((i+1)%9==0)
+				System.out.println();
 		}
 		main(null);
 	}
+	/**
+	 * 
+	 */
 	public static void sort(){
 		Collections.sort(studRecs);
 		for (int i=0;i<studRecs.size();i++){
@@ -222,5 +277,53 @@ public class SchoolSystem {
 			System.out.println();
 		}
 	}
-
+	public static Province checkProvince(String input){
+		while (true){
+			switch (input){
+				case "ab":
+					return Province.ALBERTA;
+					
+				case "bc":
+					return Province.BRITISHCOLUMBIA;
+					
+				case "nb":
+					return Province.NEWBRUNSWICK;
+					
+				case "mb":
+					return Province.MANATOBA;
+					
+				case "ns":
+					return Province.NOVASCOTIA;
+					
+				case "nt":
+					return Province.NORTHWESTTERRITORIES;
+					
+				case "nu":
+					return Province.NUNAVUT;
+					
+				case "on":
+					return Province.ONTARIO;
+					
+				case "qc":
+					return Province.QUEBEC;
+					
+				case "pe":
+					return Province.PRINCEEDWARDISLAND;
+					
+				case "sk":
+					return Province.SASKATCHUWAN;
+					
+				case "yt":
+					return Province.YUKON;
+					
+				default:{
+					System.out.println("Please input a valid province");
+					input=scn.nextLine();
+				}
+			
+				
+		}
+	}
+	
+}
 }

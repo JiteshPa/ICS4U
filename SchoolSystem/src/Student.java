@@ -1,4 +1,5 @@
 public class Student implements Comparable {
+	//public static enum Province {ALBERTA, BRITISHCOLUMBIA, MANATOBA, NEWBRUNSWICK, NEWFOUNDLANDANDLABRABOR, NORTHWESTTERRITORIES, NOVASCOTIA, NUNAVUT, ONTARIO, PRINCEEDWARDISLAND, QUEBEC, SASKATCHUWAN, YUKON} 
 	private String firstName;
 	private String lastName;
 	private String phoneNumber;
@@ -9,7 +10,7 @@ public class Student implements Comparable {
 	private String birthday;
 	private static long idGenerator=300000000;
 	private long studentNumber = idGenerator;
-	public Student(String name, String otherName, String phone, String home, String town, String state, String code, String bDay){
+	public Student(String name, String otherName, String phone, String home, String town, Province state, String code, String bDay){
 		setFirstName(name);
 		setLastName(otherName);
 		setPhoneNumber(phone);
@@ -100,8 +101,8 @@ public class Student implements Comparable {
 	/**
 	 * @param provence the province to set
 	 */
-	public void setProvince(String provence) {
-		this.province = provence;
+	public void setProvince(Province province) {
+		this.province = province;
 	}
 	/**
 	 * @return the postalCode
