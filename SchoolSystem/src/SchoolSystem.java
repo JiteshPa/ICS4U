@@ -23,7 +23,9 @@ public class SchoolSystem {
 	public static FileOutputStream fileOutputStream;
 	public static PrintStream fps;
 	
-
+	/**
+	 * This method sets up the input and output objects for the file, and the file itself.
+	 */
 	public static void setUp(){
 		try {
 			fileOutputStream = new FileOutputStream ("src\\students.txt");
@@ -41,6 +43,10 @@ public class SchoolSystem {
 		}
 		fps=new PrintStream(fileOutputStream);
 	}
+	/**
+	 * This is the main method. It acts as a main menu for the program.
+	 * @param args
+	 */
 	public static void main(String[] args) {
 		setUp();
 		do{
@@ -59,6 +65,7 @@ public class SchoolSystem {
 			System.out.println("Please enter a valid number.");
 			continue;
 		}
+		
 		if (option==1)
 			addStudent();
 		else if (option==2){
@@ -95,6 +102,9 @@ public class SchoolSystem {
 			quit();			
 		}while(true);
 	}
+	/**
+	 * This methods adds a single student to the student records.
+	 */
 	public static void addStudent()
 	{
 		boolean checker=true;
@@ -172,13 +182,13 @@ public class SchoolSystem {
 		}
 		studRecs.add(new Student(firstName,lastName,phoneNumber,address,city,valid,postalCode,birthday));
 		for (int i=0;i<studRecs.size();i++){
-			fps.print(studRecs.get(i).toString());			
+			fps.println(studRecs.get(i).toString());			
 		}
 	
 		main(null);
 	}
 	/**
-	 * 
+	 * This method checks if a given char is an integer
 	 * @param x
 	 * @return
 	 */
@@ -189,7 +199,7 @@ public class SchoolSystem {
 			return false;
 	}
 	/**
-	 * 
+	 * This method checks if a given char is a char (and not a number)
 	 * @param x
 	 * @return
 	 */
@@ -199,6 +209,9 @@ public class SchoolSystem {
 		else
 			return false;
 	}
+	/**
+	 * This method quits the program.
+	 */
 	public static void quit(){
 		System.out.println("Goodbye!");
 		try {
@@ -209,6 +222,11 @@ public class SchoolSystem {
 		}
 		System.exit(0);
 	}
+	/**
+	 * This method uses the last name of a student to find them in the records
+	 * @param lastName
+	 * @return
+	 */
 	public static Student findStudent(String lastName){
 		for (int i=0;i<studRecs.size();i++){
 			if (studRecs.get(i).getLastName().equals(lastName))
@@ -216,6 +234,10 @@ public class SchoolSystem {
 		}
 		return null;
 	}
+	/**
+	 * Given a student, this method prints out all availible information on that student.
+	 * @param x
+	 */
 	public static void printSingle(Student x){
 		System.out.println(x.getFirstName());
 		System.out.println(x.getLastName());
@@ -229,10 +251,17 @@ public class SchoolSystem {
 		System.out.println();
 		main(null);
 	}
+	/**
+	 * Given a student, this method removes that student from the student records.
+	 * @param x
+	 */
 	public static void removeStudent(Student x){
 		studRecs.remove(x);
 		main(null);
 	}
+	/**
+	 * This method outputs all information the student records has.
+	 */
 	public static void printAll(){
 		/*for (int i=0;i<studRecs.size();i++){
 			System.out.println(studRecs.get(i).getFirstName());
@@ -261,7 +290,7 @@ public class SchoolSystem {
 		main(null);
 	}
 	/**
-	 * 
+	 * This method sorts the students in the record based on last name.
 	 */
 	public static void sort(){
 		Collections.sort(studRecs);
@@ -277,6 +306,11 @@ public class SchoolSystem {
 			System.out.println();
 		}
 	}
+	/**
+	 * This method checks if a given input is the proper code for a province.
+	 * @param input
+	 * @return Province
+	 */
 	public static Province checkProvince(String input){
 		while (true){
 			switch (input){

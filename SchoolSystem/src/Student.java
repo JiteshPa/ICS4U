@@ -5,7 +5,7 @@ public class Student implements Comparable {
 	private String phoneNumber;
 	private String address;
 	private String city;
-	private String province;
+	private Province province;
 	private String postalCode;
 	private String birthday;
 	private static long idGenerator=300000000;
@@ -95,11 +95,11 @@ public class Student implements Comparable {
 	/**
 	 * @return the province
 	 */
-	public String getProvince() {
+	public Province getProvince() {
 		return province;
 	}
 	/**
-	 * @param provence the province to set
+	 * @param province the province to set
 	 */
 	public void setProvince(Province province) {
 		this.province = province;
