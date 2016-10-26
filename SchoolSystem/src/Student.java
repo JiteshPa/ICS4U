@@ -1,5 +1,4 @@
-public class Student implements Comparable {
-	//public static enum Province {ALBERTA, BRITISHCOLUMBIA, MANATOBA, NEWBRUNSWICK, NEWFOUNDLANDANDLABRABOR, NORTHWESTTERRITORIES, NOVASCOTIA, NUNAVUT, ONTARIO, PRINCEEDWARDISLAND, QUEBEC, SASKATCHUWAN, YUKON} 
+public class Student implements Comparable { 
 	private String firstName;
 	private String lastName;
 	private String phoneNumber;
@@ -25,6 +24,9 @@ public class Student implements Comparable {
 		this.studentNumber=idGenerator;
 		idGenerator++;
 	}*/
+	/**
+	 * @return the studentNumber
+	 */
 	public long getStudentNumber(){
 		return studentNumber;
 	}

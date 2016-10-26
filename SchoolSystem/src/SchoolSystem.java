@@ -23,6 +23,7 @@ public class SchoolSystem {
 	public static FileOutputStream fileOutputStream;
 	public static PrintStream fps;
 	
+	
 	/**
 	 * This method sets up the input and output objects for the file, and the file itself.
 	 */
@@ -60,9 +61,10 @@ public class SchoolSystem {
 		
 
 		try{
-			option=Integer.parseInt(scn.nextLine());				
-		}catch(NumberFormatException e2){
-			System.out.println("Please enter a valid number.");
+			option=Integer.parseInt(scn.nextLine());		
+			if ((option!=1)&&(option!=2)&&(option!=3)&&(option!=4)&&(option!=5)&&(option!=6)&&(option!=7)&&(option!=8)&&(option!=9)&&(option!=10))
+				throw new InvalidInputException("Please enter a valid number.");
+		}catch(InvalidInputException e2){
 			continue;
 		}
 		
@@ -104,6 +106,7 @@ public class SchoolSystem {
 	}
 	/**
 	 * This methods adds a single student to the student records.
+	 * @throws Exception 
 	 */
 	public static void addStudent()
 	{
@@ -237,6 +240,7 @@ public class SchoolSystem {
 	/**
 	 * Given a student, this method prints out all availible information on that student.
 	 * @param x
+	 * @throws Exception 
 	 */
 	public static void printSingle(Student x){
 		System.out.println(x.getFirstName());
@@ -254,15 +258,17 @@ public class SchoolSystem {
 	/**
 	 * Given a student, this method removes that student from the student records.
 	 * @param x
+	 * @throws Exception 
 	 */
-	public static void removeStudent(Student x){
+	public static void removeStudent(Student x) {
 		studRecs.remove(x);
 		main(null);
 	}
 	/**
 	 * This method outputs all information the student records has.
+	 * @throws Exception 
 	 */
-	public static void printAll(){
+	public static void printAll() {
 		/*for (int i=0;i<studRecs.size();i++){
 			System.out.println(studRecs.get(i).getFirstName());
 			System.out.println(studRecs.get(i).getLastName());
