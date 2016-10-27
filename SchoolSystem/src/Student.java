@@ -42,8 +42,9 @@ public class Student implements Comparable {
 	}
 	/**
 	 * @param firstName the firstName to set
+	 * @throws InvalidInputException 
 	 */
-	public void setFirstName(String firstName) {
+	public void setFirstName(String firstName){
 		this.firstName = firstName;
 	}
 	/**
@@ -68,7 +69,38 @@ public class Student implements Comparable {
 	 * @param phoneNumber the phoneNumber to set
 	 */
 	public void setPhoneNumber(String phoneNumber) {
-		this.phoneNumber = phoneNumber;
+		while(true){
+			//phoneNumber=scn.nextLine();
+			if (phoneNumber.length()==10)
+			{
+				for (int i=0;i<10;i++){
+					if(!checkInt(phoneNumber.charAt(i))){
+						System.out.println("Please enter a valid phone number.");
+						break;
+					}
+					if (i==9){
+						this.phoneNumber = phoneNumber;
+						return;
+					}
+				}
+				
+			}
+			else{
+				System.out.println("Please enter a valid phone number.");
+			}
+		}
+		
+	}
+	/**
+	 * This method checks if a given char is an integer
+	 * @param x
+	 * @return
+	 */
+	public static boolean checkInt(char x){
+		if (x=='0'||x=='1'||x=='2'||x=='3'||x=='4'||x=='5'||x=='6'||x=='7'||x=='8'||x=='9')
+			return true;
+		else
+			return false;
 	}
 	/**
 	 * @return the address

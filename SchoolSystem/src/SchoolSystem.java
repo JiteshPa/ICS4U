@@ -119,6 +119,7 @@ public class SchoolSystem {
 		String lastName=scn.nextLine();
 		String phoneNumber=null;
 		System.out.println("Please enter the student's phone number.");
+		phoneNumber=scn.nextLine();
 		while(checker){
 			phoneNumber=scn.nextLine();
 			if (phoneNumber.length()==10)
@@ -238,7 +239,7 @@ public class SchoolSystem {
 		return null;
 	}
 	/**
-	 * Given a student, this method prints out all availible information on that student.
+	 * Given a student, this method prints out all available information on that student.
 	 * @param x
 	 * @throws Exception 
 	 */
