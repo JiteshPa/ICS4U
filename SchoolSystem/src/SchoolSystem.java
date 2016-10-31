@@ -9,20 +9,18 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Scanner;
 /**
- * 
- * @author 322954991
- *
+ * SchoolSystem
+ * @author Jitesh Patel
+ * This program hold a record of students. Students can be added and removed, and also displayed
  */
 public class SchoolSystem {
 	public static ArrayList<Student> studRecs=new ArrayList<Student>();
 	public static Scanner scn=new Scanner (System.in);
 	public static File file=new File("src\\students.txt");	
-	//public static FileOutputStream fileOutputStream=new FileOutputStream("src\\students.txt");
-	//public static PrintStream fps=new PrintStream(fileOutputStream);
 	public static BufferedReader fbr;
 	public static FileOutputStream fileOutputStream;
 	public static PrintStream fps;
-	
+	public static int option=0;
 	
 	/**
 	 * This method sets up the input and output objects for the file, and the file itself.
@@ -49,9 +47,12 @@ public class SchoolSystem {
 	 * @param args
 	 */
 	public static void main(String[] args) {
-		setUp();
+		if (option==0)
+			setUp();
+		if (option==100)
+			scn.nextLine();
 		do{
-		int option;
+		
 		System.out.println("Please enter the number of the option you would like to use.");
 		System.out.println("1.Add Student");
 		System.out.println("2.Find Student");
@@ -112,14 +113,20 @@ public class SchoolSystem {
 	{
 		boolean checker=true;
 		String postalCode=null;
-		
+		System.out.println("How old is the student?");
+		int age=Integer.parseInt(scn.nextLine());
+		if(age<13||age>18)
+		{
+			System.out.println("Sorry, the student cannot be in the school due to their age.");
+			quit();
+		}
 		System.out.println("Please enter the student's first name.");
 		String firstName=scn.nextLine();
 		System.out.println("Please enter the student's last name.");
 		String lastName=scn.nextLine();
 		String phoneNumber=null;
 		System.out.println("Please enter the student's phone number.");
-		phoneNumber=scn.nextLine();
+		
 		while(checker){
 			phoneNumber=scn.nextLine();
 			if (phoneNumber.length()==10)
@@ -145,13 +152,12 @@ public class SchoolSystem {
 		String city=scn.nextLine();
 		System.out.println("Please enter the student's province using two letter code(e.g. ON for Ontario)");
 		checker=true;
-		String province=scn.nextLine();
+		String province=scn.nextLine().toLowerCase();
 		Province valid=checkProvince(province.toLowerCase());
 		
 		System.out.println("Please enter the student's postal code.");
 		while(checker==true){
 			postalCode=scn.nextLine().toLowerCase();
-			//System.out.println(postalCode);
 			checker=true;
 			if (postalCode.length()!=6){
 				System.out.println("Invalid postal code. Please enter a valid one.");
@@ -186,7 +192,23 @@ public class SchoolSystem {
 		}
 		studRecs.add(new Student(firstName,lastName,phoneNumber,address,city,valid,postalCode,birthday));
 		for (int i=0;i<studRecs.size();i++){
-			fps.println(studRecs.get(i).toString());			
+			fps.print(studRecs.get(i).getFirstName());
+			fps.print(",");
+			fps.print(studRecs.get(i).getLastName());
+			fps.print(",");
+			fps.print(studRecs.get(i).getPhoneNumber());
+			fps.print(",");
+			fps.print(studRecs.get(i).getAddress());
+			fps.print(",");
+			fps.print(studRecs.get(i).getCity());
+			fps.print(",");
+			fps.print(studRecs.get(i).getProvince());
+			fps.print(",");
+			fps.print(studRecs.get(i).getPostalCode());
+			fps.print(",");
+			fps.print(studRecs.get(i).getBirthday());
+			fps.print(",");
+			
 		}
 	
 		main(null);
@@ -263,6 +285,7 @@ public class SchoolSystem {
 	 */
 	public static void removeStudent(Student x) {
 		studRecs.remove(x);
+		option=100;
 		main(null);
 	}
 	/**
@@ -270,7 +293,7 @@ public class SchoolSystem {
 	 * @throws Exception 
 	 */
 	public static void printAll() {
-		/*for (int i=0;i<studRecs.size();i++){
+		for (int i=0;i<studRecs.size();i++){
 			System.out.println(studRecs.get(i).getFirstName());
 			System.out.println(studRecs.get(i).getLastName());
 			System.out.println(studRecs.get(i).getPhoneNumber());
@@ -280,8 +303,8 @@ public class SchoolSystem {
 			System.out.println(studRecs.get(i).getPostalCode());
 			System.out.println(studRecs.get(i).getBirthday());
 			System.out.println();
-		}*/
-		String [] values=null;
+		}
+		String [] values=new String [studRecs.size()];
 		try {
 			values=fbr.readLine().split(",");
 		} catch (IOException e) {
@@ -320,6 +343,7 @@ public class SchoolSystem {
 	 */
 	public static Province checkProvince(String input){
 		while (true){
+			//checks if the province inputed is valid
 			switch (input){
 				case "ab":
 					return Province.ALBERTA;
@@ -359,12 +383,9 @@ public class SchoolSystem {
 					
 				default:{
 					System.out.println("Please input a valid province");
-					input=scn.nextLine();
-				}
-			
-				
+					input=scn.nextLine().toLowerCase();
+				}				
+			}
 		}
 	}
-	
-}
 }
