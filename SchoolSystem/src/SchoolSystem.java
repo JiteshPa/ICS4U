@@ -322,6 +322,7 @@ public class SchoolSystem {
 	/**
 	 * This method sorts the students in the record based on last name.
 	 */
+	
 	public static void sort(){
 		Collections.sort(studRecs);
 		for (int i=0;i<studRecs.size();i++){
