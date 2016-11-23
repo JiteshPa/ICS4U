@@ -188,4 +188,51 @@ public class Sort {
 			return;		
 	}
 	
+	public static int[] mergeSort(int []a){
+		//for (int i=1;i<a.length;i=2*i){
+			//for (int j=0;j<a.length-1;j=j-2*i){
+				
+			//}
+		//}
+		if (a.length==1){
+			return a;
+		}
+		else{
+			int[] b = new int[a.length/2];
+			for (int i=0;i<b.length;i++){
+				b[i]=a[i];
+			}
+
+			int []c=new int[a.length/2];
+			for (int i=b.length;i<c.length;i++){
+				c[i]=a[i];
+			}
+			 mergeSort(b);
+			 mergeSort(c);
+			 
+			return merge(b,c);			
+		}			
+	}
+	private static int[] merge(int []a,int []b){
+		int x=0;
+		int y=0;
+	
+		int []c=new int[a.length+b.length-1];
+		for (int i=0;i<b.length+a.length;i++){
+			if (x==a.length||y==b.length)
+				return c;
+			if(a[x]>=b[y]){
+				c[i]=a[x];
+				a[x]=0;
+				x++;
+			}
+			else{
+				c[i]=b[y];
+				b[y]=0;
+				y++;
+			}
+		}
+		return c;
+	}
+	
 }
