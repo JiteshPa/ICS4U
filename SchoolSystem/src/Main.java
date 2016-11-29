@@ -10,11 +10,13 @@ public class Main {
 		//double[] b={3.0,7.8,9.2,9.7,10.8,16.4,20.0};
 		double[]b={6.0,7.8,4.0,8.6,9.0,1.2,7.9,8.8};
 		//String []c={"A","B","H","K","N","O","P","S","V"};
-		String []c={"H","K","S","A","O","N","V","P","B"};
-		a=Sort.mergeSort(a);
-		for (int i=0;i<a.length;i++){
+		String []c = {"H","K","S","A","O","N","V","P","B"};
+		a = Sort.merge(a);
+		System.out.println();
+		for(int i=0;i<a.length;i++){
 			System.out.println(a[i]);
 		}
+		
 		
 		/*System.out.println(Search.linear(a, 8));
 		System.out.println(Search.linear(b,7.8 ));

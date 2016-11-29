@@ -1,6 +1,8 @@
+import java.util.Arrays;
+
 /**
  * Jitesh Patel 
- * This class sorts arrays in order from least to greatest using either the selection or insertion sorting methods.
+ * This class sorts arrays in order from least to greatest using different methods.
  * November 15, 2016
  */
 public class Sort {
@@ -188,51 +190,124 @@ public class Sort {
 			return;		
 	}
 	
-	public static int[] mergeSort(int []a){
+	public static int[] merge(int []a){
 		//for (int i=1;i<a.length;i=2*i){
 			//for (int j=0;j<a.length-1;j=j-2*i){
 				
 			//}
 		//}
+		int[] b = Arrays.copyOfRange(a, 0, a.length/2);
+		int[] c = Arrays.copyOfRange(a, b.length, a.length);
 		if (a.length==1){
 			return a;
 		}
 		else{
-			int[] b = new int[a.length/2];
-			for (int i=0;i<b.length;i++){
-				b[i]=a[i];
-			}
+			merge(b);
+			merge(c);	
+			return merge(b,c);
+		}
 
-			int []c=new int[a.length/2];
-			for (int i=b.length;i<c.length;i++){
-				c[i]=a[i];
-			}
-			 mergeSort(b);
-			 mergeSort(c);
-			 
-			return merge(b,c);			
-		}			
+
+//			
+//		
 	}
 	private static int[] merge(int []a,int []b){
 		int x=0;
 		int y=0;
-	
-		int []c=new int[a.length+b.length-1];
-		for (int i=0;i<b.length+a.length;i++){
-			if (x==a.length||y==b.length)
-				return c;
-			if(a[x]>=b[y]){
-				c[i]=a[x];
-				a[x]=0;
-				x++;
-			}
-			else{
-				c[i]=b[y];
-				b[y]=0;
+		int[]c = new int[a.length+b.length];
+		
+		
+		for (int i=1;i<b.length;i++){
+		if(b[i]<b[i-1])
+		{
+			int temp=0;
+			temp=b[i-1];
+			b[i-1]=b[i];
+			b[i]=temp;
+		}
+	}
+	for (int i=1;i<a.length;i++){
+		if(a[i]<a[i-1])
+		{
+			int temp=0;
+			temp=a[i-1];
+			a[i-1]=a[i];
+			a[i]=temp;
+		}
+	}
+	int counter=0;
+	System.out.println(a[a.length-1]);
+	System.out.println(b[b.length-1]);
+	System.out.println();
+	while(true)
+	{
+		if((x==a.length)&&(y==b.length)){
+			
+			break;
+		}
+		if (x==a.length){
+			for (int i=counter;i<c.length;i++){
+				
+				b[y]=c[i];
 				y++;
 			}
+			
+			if (c[c.length-1]==0){
+				b[b.length-1]=c[c.length-1];
+			}
+			
+			break;
 		}
-		return c;
+		else if (y==b.length){
+			for (int i=counter;i<c.length;i++){
+				a[x]=c[i];
+				x++;	
+			}
+			
+			if (c[c.length-1]==0){
+				a[a.length-1]=c[c.length-1];
+			}
+			
+			break;
+		}
+		else if (a[x]<b[y]){
+			c[counter]=a[x];
+			x++;
+		}
+		else{
+			c[counter]=b[y];
+			y++;
+		}
+		
+		counter++;	
 	}
 	
+//	printArray(a);
+//	System.out.println();
+//	printArray(b);
+//	System.out.println();
+//	
+	return c;
+	}
+	public static void quickSort(int []a){ 
+		int pivot=a[a.length-1];		 
+	}
+	private static void printArray(int []x){
+		for (int i=0;i<x.length;i++){
+			System.out.println(x[i]);
+		}
+	}
+	public static void partition(int []a, int pivot){
+		int j=0;
+		int i=-1;
+		int temp=0;
+		for (int k=1;k<a.length;k++){
+			if (a[j]<a[k]){
+				i++;
+				temp=a[j];
+				a[j]=a[k];
+				a[k]=temp;
+			}
+		}	
+	}
 }
