@@ -11,8 +11,7 @@ public class Main {
 		double[]b={6.0,7.8,4.0,8.6,9.0,1.2,7.9,8.8};
 		//String []c={"A","B","H","K","N","O","P","S","V"};
 		String []c = {"H","K","S","A","O","N","V","P","B"};
-		a = Sort.merge(a);
-		System.out.println();
+		Sort.quickSort(a);
 		for(int i=0;i<a.length;i++){
 			System.out.println(a[i]);
 		}

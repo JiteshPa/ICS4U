@@ -1,15 +1,15 @@
 import java.util.Arrays;
 
 /**
- * Jitesh Patel 
- * This class sorts arrays in order from least to greatest using different methods.
- * November 15, 2016
+ * Jitesh Patel This class sorts arrays in order from least to greatest using
+ * different methods. November 15, 2016
  */
 public class Sort {
 	/**
 	 * This method takes an int array and sorts it using the insertion method
 	 * 
-	 * @param int[] a
+	 * @param int[]
+	 *            a
 	 */
 	public static void insertion(int[] a) {
 		int x = 0;
@@ -30,7 +30,8 @@ public class Sort {
 	/**
 	 * This method takes an string array and sorts it using the insertion method
 	 * 
-	 * @param String [] a
+	 * @param String
+	 *            [] a
 	 */
 	public static void insertion(String[] a) {
 		String x = null;
@@ -51,7 +52,8 @@ public class Sort {
 	/**
 	 * This method takes an double array and sorts it using the insertion method
 	 * 
-	 * @param double [] a
+	 * @param double
+	 *            [] a
 	 */
 	public static void insertion(double[] a) {
 		double x = 0;
@@ -71,7 +73,8 @@ public class Sort {
 	/**
 	 * This method takes an int array and sorts it using the selection method
 	 * 
-	 * @param String [] a
+	 * @param String
+	 *            [] a
 	 */
 	public static void selection(String[] a) {
 		String x = null;
@@ -89,7 +92,8 @@ public class Sort {
 	/**
 	 * This method takes an int array and sorts it using the selection method
 	 * 
-	 * @param int [] a
+	 * @param int
+	 *            [] a
 	 */
 	public static void selection(int[] a) {
 		int x = 0;
@@ -107,7 +111,8 @@ public class Sort {
 	/**
 	 * This method takes an double array and sorts it using the selection method
 	 * 
-	 * @param double [] a
+	 * @param double
+	 *            [] a
 	 */
 	public static void selection(double[] a) {
 		double x = 0;
@@ -121,193 +126,202 @@ public class Sort {
 			}
 		}
 	}
+
 	/**
 	 * This method takes an int array and sorts it using the bubble method
 	 * 
-	 * @param int [] a
+	 * @param int
+	 *            [] a
 	 */
 	public static void bubble(int[] a) {
-		int x=0;
-		int counter=0;
-		for (int i=0;i<a.length;i++){
-			for (int j=0;j<a.length-1;j++){
-				counter=0;
-				if(a[j+1]<a[j]){					
+		int x = 0;
+		int counter = 0;
+		for (int i = 0; i < a.length; i++) {
+			for (int j = 0; j < a.length - 1; j++) {
+				counter = 0;
+				if (a[j + 1] < a[j]) {
 					x = a[j];
-					a[j] = a[j+1];
-					a[j+1] = x;
+					a[j] = a[j + 1];
+					a[j + 1] = x;
 					counter++;
-				}				
+				}
 			}
 		}
-		if (counter==0)
-			return;	
+		if (counter == 0)
+			return;
 	}
+
 	/**
 	 * This method takes an double array and sorts it using the bubble method
 	 * 
-	 * @param double [] a
+	 * @param double
+	 *            [] a
 	 */
 	public static void bubble(double[] a) {
-		double x=0;
-		int counter=0;
-		for (int i=0;i<a.length;i++){
-			for (int j=0;j<a.length-1;j++){
-				counter=0;
-				if(a[j+1]<a[j]){					
+		double x = 0;
+		int counter = 0;
+		for (int i = 0; i < a.length; i++) {
+			for (int j = 0; j < a.length - 1; j++) {
+				counter = 0;
+				if (a[j + 1] < a[j]) {
 					x = a[j];
-					a[j] = a[j+1];
-					a[j+1] = x;
+					a[j] = a[j + 1];
+					a[j + 1] = x;
 					counter++;
 				}
-				
+
 			}
 		}
-		if (counter==0)
-			return;		
+		if (counter == 0)
+			return;
 	}
+
 	/**
 	 * This method takes an String array and sorts it using the bubble method
 	 * 
-	 * @param string [] a
+	 * @param string
+	 *            [] a
 	 */
 	public static void bubble(String[] a) {
-		String x=null;
-		int counter=0;
-		for (int i=0;i<a.length;i++){
-			for (int j=0;j<a.length-1;j++){
-				counter=0;
-				if(a[j+1].compareTo(a[j])<0){					
+		String x = null;
+		int counter = 0;
+		for (int i = 0; i < a.length; i++) {
+			for (int j = 0; j < a.length - 1; j++) {
+				counter = 0;
+				if (a[j + 1].compareTo(a[j]) < 0) {
 					x = a[j];
-					a[j] = a[j+1];
-					a[j+1] = x;
+					a[j] = a[j + 1];
+					a[j + 1] = x;
 					counter++;
 				}
-				
+
 			}
 		}
-		if (counter==0)
-			return;		
+		if (counter == 0)
+			return;
 	}
-	
-	public static int[] merge(int []a){
-		//for (int i=1;i<a.length;i=2*i){
-			//for (int j=0;j<a.length-1;j=j-2*i){
-				
-			//}
-		//}
-		int[] b = Arrays.copyOfRange(a, 0, a.length/2);
-		int[] c = Arrays.copyOfRange(a, b.length, a.length);
-		if (a.length==1){
-			return a;
-		}
-		else{
-			merge(b);
-			merge(c);	
-			return merge(b,c);
-		}
 
-
-//			
-//		
-	}
-	private static int[] merge(int []a,int []b){
-		int x=0;
-		int y=0;
-		int[]c = new int[a.length+b.length];
-		
-		
-		for (int i=1;i<b.length;i++){
-		if(b[i]<b[i-1])
-		{
-			int temp=0;
-			temp=b[i-1];
-			b[i-1]=b[i];
-			b[i]=temp;
-		}
-	}
-	for (int i=1;i<a.length;i++){
-		if(a[i]<a[i-1])
-		{
-			int temp=0;
-			temp=a[i-1];
-			a[i-1]=a[i];
-			a[i]=temp;
-		}
-	}
-	int counter=0;
-	System.out.println(a[a.length-1]);
-	System.out.println(b[b.length-1]);
-	System.out.println();
-	while(true)
+	private static void mergeSort(int a[], int start, int end)
 	{
-		if((x==a.length)&&(y==b.length)){
-			
-			break;
+		if(start<end)
+		{
+			int mid = (end + start) / 2;
+			mergeSort(a, start, mid);
+			mergeSort(a, mid+1, end);
+			merge(a, start, mid, end);
 		}
-		if (x==a.length){
-			for (int i=counter;i<c.length;i++){
+	}
+
+	public static int[] mergeSort(int []a)
+	{
+		int start = 0;
+		int end = a.length-1;
+		mergeSort(a, start, end);
+		return a;
+	}
+
+
+	private static void merge(int[] a,int start, int mid, int end )
+	{
+		int [] c = new int[a.length];
+		for (int i = 0; i < a.length; i++)
+		{
+			c[i] = a[i];
+		}
+		int count = start;
+		int num = mid+1;
+		int i = start;
+		while (count <= mid && num <= end)
+		{
+			if (c[count] <= c[num]) 
+			{
+				a[i] =c[count];
+				count++;
 				
-				b[y]=c[i];
-				y++;
+			} 
+			else
+			{
+				a[i] = c[num];
+				num++;
 			}
-			
-			if (c[c.length-1]==0){
-				b[b.length-1]=c[c.length-1];
-			}
-			
-			break;
+			i++;
 		}
-		else if (y==b.length){
-			for (int i=counter;i<c.length;i++){
-				a[x]=c[i];
-				x++;	
-			}
-			
-			if (c[c.length-1]==0){
-				a[a.length-1]=c[c.length-1];
-			}
-			
-			break;
+		while (count <= mid)
+		{
+			a[i] = c[count];
+			i++;
+			count++;
 		}
-		else if (a[x]<b[y]){
-			c[counter]=a[x];
-			x++;
+		while(num <= end)
+		{
+			a[i] = c[num];
+			i++;
+			num++;
 		}
-		else{
-			c[counter]=b[y];
-			y++;
-		}
-		
-		counter++;	
 	}
+
+
+	public static int[] quickSort(int []a)
+	{	
+		int i=0;
+		int j=a.length-1;
+		quickSort(a, i, j);
+		return a;
+
+	}
+
+	private static void quickSort(int a[], int i, int j)
+	{
+
+		int num = partition(a, i, j);
+
+		if (i< num - 1)
+		{
+			quickSort(a, i, num - 1);
+		}
+		if (num < j)
+		{
+			quickSort(a, num,j);
+			
+		}
+
+	}
+
+	private static int partition (int a[], int i, int j)
+	{
+
+		int  mid= (i+j)/2;
+		int pivot = a[mid];
+
+		while (i <= j) 
+		{
+
+			while (a[i] < pivot)
+			{
+				i++;
+			}
+			while (a[j] > pivot)
+			{
+				j= j-1;
+			}
+			if (i <= j) 
+			{
+				int temp=a[j];
+				a[j]=a[i];
+				a[i]=temp;		
+				i++;
+				j= j-1;
+			}
+		}
+
+		return i;
 	
-//	printArray(a);
-//	System.out.println();
-//	printArray(b);
-//	System.out.println();
-//	
-	return c;
 	}
-	public static void quickSort(int []a){ 
-		int pivot=a[a.length-1];		 
-	}
-	private static void printArray(int []x){
-		for (int i=0;i<x.length;i++){
+
+	private static void printArray(int[] x) {
+		for (int i = 0; i < x.length; i++) {
 			System.out.println(x[i]);
 		}
 	}
-	public static void partition(int []a, int pivot){
-		int j=0;
-		int i=-1;
-		int temp=0;
-		for (int k=1;k<a.length;k++){
-			if (a[j]<a[k]){
-				i++;
-				temp=a[j];
-				a[j]=a[k];
-				a[k]=temp;
-			}
-		}	
-	}
+
 }
