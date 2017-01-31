@@ -2,10 +2,10 @@
 import java.awt.Color;
 import java.awt.Container;
 import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.Graphics;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
-import java.util.Scanner;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseMotionListener;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -19,34 +19,42 @@ import javax.swing.JPanel;
  * <br>
  * Should be run at around 500x300 pixels.<br>
  * <br>
- * @version Nov. 2015
+ * @version Nov. 2015    
  * 
- * @author Christina Kemp adapted from Sam Scott
- */
+ * @author Christina Kemp adapted from Sam Scott */
 @SuppressWarnings("serial")
-public class GamePanel extends JPanel implements Runnable, KeyListener {
+public class GamePanel extends JPanel implements Runnable, MouseMotionListener
+{
+	int mouseX = 0;
+	int mouseY = 0;
+	int lives = 5;
+	int width = 1000;
+	int height = 500;
+	int numBalls = 30;
+	final int pauseDuration = 0;
 
-
-	int width = 500;
-	int height = 300;
-
-	/**
-	 * The number of balls on the screen.
-	 */
-	final int numBalls = 10;
-	/**
-	 * The pause between repainting (should be set for about 30 frames per
-	 * second).
-	 */
-	final int pauseDuration = 50;
-	/**
-	 * An array of balls.
-	 */
 	FlashingBall[] ball = new FlashingBall[numBalls];
 
-	/** main program (entry point) */
-	public static void main(String[] args) {
+	public GamePanel(){
+		// Start the ball bouncing (in its own thread)
+		this.setPreferredSize(new Dimension(width, height));
+		this.setBackground(Color.WHITE);
 
+		for (int i = 0; i < numBalls; i++) {
+			ball[i] = new FlashingBall(400, 300, 0, width, 0, height);
+			ball[i].setXSpeed(Math.random() * 16-8);
+			ball[i].setYSpeed(Math.random() * 16-8);
+			ball[i].setColor(new Color((int) (Math.random() * 256), (int) (Math.random() * 256), (int) (Math.random() * 256)));
+		}
+
+		addMouseMotionListener(this);
+		Thread gameThread = new Thread(this);
+		gameThread.start();
+
+	}
+
+	
+	public static void main(String[] args) {
 		// Set up main window (using Swing's Jframe)
 		JFrame frame = new JFrame("Dodgeball");
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -56,41 +64,43 @@ public class GamePanel extends JPanel implements Runnable, KeyListener {
 		Container c = frame.getContentPane();
 		c.add(new GamePanel());
 		frame.pack();
-
-
-	}
-
-	public GamePanel(){
-		// Start the ball bouncing (in its own thread)
-		this.setPreferredSize(new Dimension(width, height));
-		this.setBackground(Color.WHITE);
-		MouseAndKeyListener input=new MouseAndKeyListener();
-		
-		for (int i = 0; i < numBalls; i++) {
-			ball[i] = new FlashingBall(50, 50, 0, width, 0, height);
-			ball[i].setXSpeed(Math.random() * 16-8);
-			ball[i].setYSpeed(Math.random() * 16-8);
-			ball[i].setColor(new Color((int) (Math.random() * 256), (int) (Math
-					.random() * 256), (int) (Math.random() * 256)));
-		}
-		addKeyListener (this);
-		Thread gameThread = new Thread(this);
-		gameThread.start();
-		for (int i=0;i<ball.length;i++){
-			double a=3.14*(Math.pow(ball[i].getRadius(), 2));
-			
-		}
-		
-		
-		
-
 	}
 
 	/**
 	 * Repaints the frame periodically.
 	 */
-	public void run() {
-		while (true) {
+	public void run() 
+	{
+		while (true) 
+		{
+			this.requestFocus();
+			lives(getGraphics());
+
+			for (int i = 0; i < ball.length; i++) 
+			{
+				if (collision(ball[i])) 
+				{
+					lives --;
+
+					for (i = 0; i < ball.length; i ++)
+					{	
+						ball[i].stopThread();
+						lives(getGraphics());
+					}
+
+					try {
+						Thread.sleep(1250);
+					} catch (InterruptedException e) {
+					}
+
+					for (i = 0; i < ball.length; i ++)
+					{						
+						ball[i].startThread();
+						lives(getGraphics());
+					}
+				}
+			}
+
 			repaint();
 			try {
 				Thread.sleep(pauseDuration);
@@ -99,33 +109,61 @@ public class GamePanel extends JPanel implements Runnable, KeyListener {
 		}
 	}
 
+	public boolean collision(FlashingBall ball) 
+	{
+		int radius = ball.getRadius();
+		double xDistance = mouseX - ball.getX();
+		double yDistance = mouseY - ball.getY();
+		double hyp = Math.sqrt(Math.pow(xDistance, 2) + Math.pow(yDistance, 2));
+
+		return hyp <= radius;
+	}
+
 	/**
 	 * Clears the screen and paints the balls.
 	 */
-	public void paintComponent(Graphics g) {
+	public void paintComponent(Graphics g) 
+	{
 		super.paintComponent(g);
-		for (int i = 0; i < numBalls; i++) {
+		for (int i = 0; i < numBalls; i++)
+		{
 			ball[i].draw(g);
 		}
+	}
 
+
+	public void lives (Graphics g)
+	{
+		if (lives > 0 )
+		{
+			//g.setColor(Color.BLACK);
+			g.setFont(new Font("New Times Roman", 50 , 30));
+			g.drawString("LIVES:", 100, 100);
+			g.drawString(Integer.toString(lives), 250, 100);
+		}
+
+		else 
+		{
+			g.setFont(new Font("New Times Roman", 100 , 100));
+			g.drawString("GAME OVER", 200, 100);
+
+			for (int i = 0; i < numBalls; i ++)
+			{
+				ball[i].stopThread();
+			}
+		}
+	}
+	@Override
+	public void mouseDragged(MouseEvent arg0) 
+	{
+		repaint();
 	}
 
 	@Override
-	public void keyPressed(KeyEvent e) {
-		// TODO Auto-generated method stub
-		
+	public void mouseMoved(MouseEvent arg0) 
+	{
+		mouseX = arg0.getX();
+		mouseY = arg0.getY();
+		repaint();
 	}
-
-	@Override
-	public void keyReleased(KeyEvent e) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void keyTyped(KeyEvent e) {
-		// TODO Auto-generated method stub
-		
-	}
-
 }
