@@ -1,3 +1,4 @@
+
 import java.awt.Color;
 import java.awt.Graphics;
 
@@ -92,8 +93,7 @@ public abstract class MovingObject implements Runnable {
 	 * @param bottom
 	 *            Bottom edge for bouncing.
 	 */
-	public MovingObject(double x, double y, int left, int right, int top,
-			int bottom) {
+	public MovingObject(double x, double y, int left, int right, int top, int bottom) {
 		this.pauseDuration = 40;
 		this.xSpeed = 0;
 		this.ySpeed = 0;
